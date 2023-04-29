@@ -1,0 +1,19 @@
+from moviepy.editor import *
+
+# Create a clip with a solid color background
+bg_color = (255, 255, 255) # white
+clip_duration = 5 # seconds
+clip_width = 640
+clip_height = 480
+bg_clip = ColorClip((clip_width, clip_height), bg_color).set_duration(clip_duration)
+
+# Create a text clip with moving text
+text_color = (0, 0, 0) # black
+text_duration = 3 # seconds
+text_size = 40
+text_pos = lambda t: (clip_width/2, clip_height/2 + 50*t)
+text_clip = TextClip("Hello World!", fontsize=text_size, color=text_color).set_duration(text_duration).set_pos(text_pos)
+
+# Combine the clips and export the final video
+final_clip = CompositeVideoClip([bg_clip, text_clip])
+final_clip.write_videofile("hello_world.mp4")
